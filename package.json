@@ -1,0 +1,42 @@
+{
+    "name": "starter",
+    "version": "0.0.1",
+    "description": "Simple Webpack Starter",
+    "keywords": [
+        "react",
+        "webpack"
+    ],
+    "author": "J Scott Smith",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/jscottsmith/@TODO"
+    },
+    "main": "lib/index.js",
+    "scripts": {
+        "start": "webpack-dev-server --open",
+        "watch": "webpack --watch"
+    },
+    "dependencies": {
+        "classnames": "^2.2.5",
+        "prop-types": "^15.5.10",
+        "react": "^15.0.0",
+        "react-dom": "^15.0.0"
+    },
+    "devDependencies": {
+        "babel-cli": "^6.24.1",
+        "babel-core": "^6.23.1",
+        "babel-loader": "^6.3.2",
+        "babel-preset-env": "^1.6.0",
+        "babel-preset-react": "^6.23.0",
+        "babel-preset-stage-0": "^6.24.1",
+        "css-loader": "^0.28.0",
+        "file-loader": "^0.11.2",
+        "node-sass": "^4.5.0",
+        "postcss-loader": "^1.3.3",
+        "sass-loader": "^6.0.3",
+        "style-loader": "^0.16.1",
+        "webpack": "^2.2.1",
+        "webpack-dev-server": "^2.9.1"
+    }
+}

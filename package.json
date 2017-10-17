@@ -1,16 +1,13 @@
 {
-    "name": "starter",
+    "name": "react-observed",
     "version": "0.0.1",
-    "description": "Simple Webpack Starter",
-    "keywords": [
-        "react",
-        "webpack"
-    ],
+    "description": "React Observed",
+    "keywords": ["react", "component", "intersection observer"],
     "author": "J Scott Smith",
     "license": "MIT",
     "repository": {
         "type": "git",
-        "url": "https://github.com/jscottsmith/@TODO"
+        "url": "https://github.com/jscottsmith/react-observed"
     },
     "main": "lib/index.js",
     "scripts": {

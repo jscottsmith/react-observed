@@ -28,7 +28,7 @@ Here's an example:
         <div ref={mapRef}>
             {isInView ?
                 <span>I'm in view!</span> :
-                <span>I'm not in view</span>
+                <span>I'm not in view</span>}
         </div>
     )}
 </Observed>

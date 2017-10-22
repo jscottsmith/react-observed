@@ -21,7 +21,7 @@ class Observed extends Component {
         options: PropTypes.shape({
             root: PropTypes.node,
             rootMargin: PropTypes.string.isRequired,
-            threshold: PropTypes.array.isRequired,
+            threshold: PropTypes.oneOfType([PropTypes.array, PropTypes.number]),
         }),
     };
 

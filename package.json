@@ -12,7 +12,9 @@
     "main": "lib/index.js",
     "scripts": {
         "start": "webpack-dev-server --open",
-        "watch": "webpack --watch"
+        "watch": "webpack --watch",
+        "storybook": "start-storybook -p 6006",
+        "build-storybook": "build-storybook"
     },
     "dependencies": {
         "classnames": "^2.2.5",
@@ -34,6 +36,9 @@
         "sass-loader": "^6.0.3",
         "style-loader": "^0.16.1",
         "webpack": "^2.2.1",
-        "webpack-dev-server": "^2.9.1"
+        "webpack-dev-server": "^2.9.1",
+        "@storybook/react": "^3.2.12",
+        "@storybook/addon-actions": "^3.2.12",
+        "@storybook/addon-links": "^3.2.12"
     }
 }

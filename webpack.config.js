@@ -65,4 +65,4 @@ const clientConfig = {
     },
 };
 
-module.exports = [clientConfig];
+module.exports = clientConfig;

@@ -2,9 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Observed from 'Observed.js';
 
-/* global describe, it */
+/* global describe, it, IntersectionObserver */
 
-describe('An <Observed> component', () => {
+describe('Expect an <Observed> component', () => {
     it('to throw if no IntersectionObserver is found in the window', () => {
         const node = document.createElement('div');
 
@@ -47,6 +47,26 @@ describe('An <Observed> component', () => {
         );
     });
 
+    it('to create an IntersectionObserver instance on mount', () => {
+        require('intersection-observer');
+
+        const node = document.createElement('div');
+
+        let component = null;
+
+        ReactDOM.render(
+            <Observed ref={ref => (component = ref)}>
+                {({ mapRef }) => {
+                    return <div ref={mapRef} />;
+                }}
+            </Observed>,
+            node
+        );
+
+        // Expected
+        expect(component.observer).toBeInstanceOf(IntersectionObserver);
+    });
+
     it('to take a function as a child', () => {
         require('intersection-observer');
 
@@ -56,7 +76,7 @@ describe('An <Observed> component', () => {
 
         ReactDOM.render(
             <Observed>
-                {({ isInView, mapRef }) => {
+                {({ mapRef }) => {
                     func = true;
                     return <div ref={mapRef} />;
                 }}

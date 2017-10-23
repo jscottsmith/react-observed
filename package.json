@@ -11,9 +11,9 @@
     },
     "main": "lib/index.js",
     "scripts": {
-        "start": "jest && webpack-dev-server --open",
+        "start": "yarn test && webpack-dev-server --open",
         "watch": "webpack --watch",
-        "test": "jest",
+        "test": "BABEL_ENV=test jest",
         "storybook": "start-storybook -p 6006",
         "build-storybook": "build-storybook"
     },
@@ -22,6 +22,7 @@
     },
     "dependencies": {
         "classnames": "^2.2.5",
+        "intersection-observer": "^0.4.2",
         "prop-types": "^15.5.10",
         "react": "^15.0.0",
         "react-dom": "^15.0.0"
@@ -32,6 +33,7 @@
         "@storybook/react": "^3.2.12",
         "babel-cli": "^6.24.1",
         "babel-core": "^6.23.1",
+        "babel-jest": "^21.2.0",
         "babel-loader": "^6.3.2",
         "babel-preset-env": "^1.6.0",
         "babel-preset-react": "^6.23.0",

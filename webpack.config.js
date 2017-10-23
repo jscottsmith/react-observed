@@ -1,5 +1,4 @@
 const webpack = require('webpack');
-const createBabelConfig = require('./babelrc');
 const path = require('path');
 
 const ROOT = path.resolve('./');
@@ -38,7 +37,6 @@ const clientConfig = {
                 test: /\.js$/,
                 include: [DEMO, SRC],
                 loader: 'babel-loader',
-                query: createBabelConfig(),
             },
             {
                 test: /\.scss$/,

@@ -1,6 +1,7 @@
 import 'babel-polyfill';
+import 'intersection-observer';
 
-// copies are index.html to the dist folder
+// copies the index.html to the dist folder
 import './index.html';
 
 import React from 'react';

@@ -15,3 +15,25 @@
 		background-color: lightgreen;
 	}
 }
+
+:local(.state) {
+	position: fixed;
+	top: 10px;
+	right: 10px;
+	display: flex;
+	align-items: center;
+}
+
+:local(.isInView) {
+	:local(.indicator) {
+		background-color: lightgreen;
+	}
+}
+
+:local(.indicator) {
+	display: inline-block;
+	width: 32px;
+	height: 32px;
+	border-radius: 50% 50%;
+	background-color: tomato;
+}

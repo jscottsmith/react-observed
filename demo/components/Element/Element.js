@@ -13,17 +13,27 @@ class Element extends Component {
         const { mapRef, isInView } = this.props;
 
         return (
-            <div
-                ref={mapRef}
-                className={cx(styles.observed, {
-                    [styles.isInView]: isInView,
-                })}
-            >
-                {isInView ? (
-                    <span>I'm observed and in view!</span>
-                ) : (
-                    <span>I'm observed and not in view.</span>
-                )}
+            <div>
+                <div
+                    ref={mapRef}
+                    className={cx(styles.observed, {
+                        [styles.isInView]: isInView,
+                    })}
+                >
+                    {isInView ? (
+                        <span>I'm observed and in view!</span>
+                    ) : (
+                        <span>I'm observed and not in view.</span>
+                    )}
+                </div>
+                <div
+                    className={cx(styles.state, {
+                        [styles.isInView]: isInView,
+                    })}
+                >
+                    <span>is in view</span>
+                    <span className={styles.indicator} />
+                </div>
             </div>
         );
     }

@@ -2,7 +2,17 @@
     "name": "react-observed",
     "version": "0.0.1",
     "description": "React Observed",
-    "keywords": ["react", "component", "intersection observer"],
+    "keywords": [
+        "react",
+        "component",
+        "intersection observer",
+        "asynchronous",
+        "watch",
+        "scroll",
+        "element",
+        "visibility",
+        "viewport"
+    ],
     "author": "J Scott Smith",
     "license": "MIT",
     "repository": {

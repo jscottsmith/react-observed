@@ -1,6 +1,6 @@
 {
     "name": "react-observed",
-    "version": "0.0.1",
+    "version": "1.0.0",
     "description": "React Observed",
     "keywords": [
         "react",
@@ -25,7 +25,9 @@
         "watch": "webpack --watch",
         "test": "BABEL_ENV=test jest",
         "storybook": "start-storybook -p 6006",
-        "build-storybook": "build-storybook"
+        "build-storybook": "build-storybook",
+        "prepublish":
+            "babel ./src --out-dir ./lib --plugins babel-plugin-add-module-exports"
     },
     "jest": {
         "modulePaths": ["<rootDir>/src/"]
@@ -42,6 +44,7 @@
         "babel-core": "^6.23.1",
         "babel-jest": "^21.2.0",
         "babel-loader": "^6.3.2",
+        "babel-plugin-add-module-exports": "^0.2.1",
         "babel-preset-env": "^1.6.0",
         "babel-preset-react": "^6.23.0",
         "babel-preset-stage-0": "^6.24.1",

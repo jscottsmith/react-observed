@@ -32,7 +32,7 @@
     "jest": {
         "modulePaths": ["<rootDir>/src/"]
     },
-    "dependencies": {
+    "peerDependencies": {
         "prop-types": "^15.5.10",
         "react": "^15.0.0"
     },
@@ -55,6 +55,8 @@
         "jest": "^21.2.1",
         "node-sass": "^4.5.0",
         "postcss-loader": "^1.3.3",
+        "prop-types": "^15.6.0",
+        "react": "^15.0.0",
         "react-dom": "^15.0.0",
         "sass-loader": "^6.0.3",
         "style-loader": "^0.16.1",

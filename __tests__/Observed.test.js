@@ -1,8 +1,8 @@
+/* global describe, it, IntersectionObserver */
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Observed from 'Observed.js';
-
-/* global describe, it, IntersectionObserver */
 
 describe('Expect an <Observed> component', () => {
     it('to throw if no IntersectionObserver is found in the window', () => {

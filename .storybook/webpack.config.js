@@ -9,9 +9,9 @@
 const config = require('../webpack.config.js');
 
 module.exports = {
-	plugins: [
-		// your custom plugins
-	],
-	resolve: config.resolve,
-	module: config.module,
+    plugins: [
+        // your custom plugins
+    ],
+    resolve: config.resolve,
+    module: config.module,
 };

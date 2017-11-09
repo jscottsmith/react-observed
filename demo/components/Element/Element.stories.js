@@ -42,4 +42,11 @@ storiesOf('Observed Element', module)
                 <Element isInView={isInView} mapRef={mapRef} />
             )}
         </Observed>
+    ))
+    .add('true on initial mount', () => (
+        <Observed initialViewState>
+            {({ isInView, mapRef }) => (
+                <Element isInView={isInView} mapRef={mapRef} />
+            )}
+        </Observed>
     ));

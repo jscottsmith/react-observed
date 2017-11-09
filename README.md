@@ -36,10 +36,11 @@ Here's an example:
 
 ## Component Props
 
-`<Observed>` takes three props as shown by the following example:
+`<Observed>` takes four props as shown by the following example:
 
 ```jsx
 <Observed
+    initialViewState
     intersectionRatio={0.5} // target's visibility must pass the 50% threshold to be considered visible
     once // discontinue observing the target once it's become visible
     options={{
@@ -49,6 +50,13 @@ Here's an example:
     }} // IntersectionObserver constuctor options
 />
 ```
+
+**`initialViewState`**
+
+Type: `boolean`
+Default: `false`
+
+Optionally sets the initial `isInView` state. By default this is `false` until the observer updates the state.
 
 **`intersectionRatio`** 
 

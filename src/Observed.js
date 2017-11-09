@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 
 class Observed extends Component {
     static defaultProps = {
+        initialViewState: false,
         intersectionRatio: 1.0, // intersect ratio that the element is considered "in view"
         once: false, // remove after the el has intersected the view
         options: {
@@ -16,6 +17,7 @@ class Observed extends Component {
 
     static propTypes = {
         children: PropTypes.func.isRequired,
+        initialViewState: PropTypes.bool.isRequired,
         intersectionRatio: PropTypes.number.isRequired,
         once: PropTypes.bool.isRequired,
         options: PropTypes.shape({
@@ -25,9 +27,12 @@ class Observed extends Component {
         }),
     };
 
-    state = {
-        isInView: false,
-    };
+    constructor(props) {
+        super(props);
+        this.state = {
+            isInView: props.initialViewState,
+        };
+    }
 
     componentDidMount() {
         this.createObserver();

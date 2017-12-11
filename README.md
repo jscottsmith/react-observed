@@ -1,6 +1,6 @@
 # React Observed
 
-[![Build Status](https://travis-ci.org/jscottsmith/react-observed.svg?branch=v1.0.0-beta.1)](https://travis-ci.org/jscottsmith/react-observed)
+[![Build Status](https://travis-ci.org/jscottsmith/react-observed.svg?branch=master)](https://travis-ci.org/jscottsmith/react-observed)
 
 React component using the browser's Intersection Observer API to watch for when an element is within -- or partially within -- the viewport.
 

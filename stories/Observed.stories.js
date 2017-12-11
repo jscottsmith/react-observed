@@ -7,7 +7,7 @@ import { linkTo } from '@storybook/addon-links';
 import { Element } from 'components';
 import Observed from 'react-observed';
 
-storiesOf('Observed Element', module)
+storiesOf('<Observed>', module)
     .add('with default props', () => (
         <Observed>
             {({ isInView, mapRef }) => (
@@ -15,7 +15,7 @@ storiesOf('Observed Element', module)
             )}
         </Observed>
     ))
-    .add('true when partially in view', () => (
+    .add('is true when partially in view', () => (
         <Observed
             intersectionRatio={0.01}
             options={{
@@ -29,7 +29,7 @@ storiesOf('Observed Element', module)
             )}
         </Observed>
     ))
-    .add('true when halfway in view', () => (
+    .add('is true when halfway in view', () => (
         <Observed
             intersectionRatio={0.5}
             options={{
@@ -43,7 +43,7 @@ storiesOf('Observed Element', module)
             )}
         </Observed>
     ))
-    .add('true on initial mount', () => (
+    .add('is true on initial mount', () => (
         <Observed initialViewState>
             {({ isInView, mapRef }) => (
                 <Element isInView={isInView} mapRef={mapRef} />

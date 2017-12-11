@@ -25,7 +25,7 @@
         "watch": "webpack --watch",
         "test": "BABEL_ENV=test jest",
         "storybook": "start-storybook -p 6006",
-        "build-storybook": "build-storybook",
+        "storybook:export": "build-storybook -c .storybook -o build",
         "prepublish": "babel ./src --out-dir ./lib"
     },
     "jest": {

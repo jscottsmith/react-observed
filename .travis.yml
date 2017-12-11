@@ -1,0 +1,13 @@
+language: node_js
+node_js:
+  - "7"
+cache:
+  directories:
+    - "node_modules"
+script: yarn run storybook:export
+deploy:
+  skip_cleanup: true
+  provider: surge
+  project: build
+  domain: react-observed.surge.sh
+  on: master

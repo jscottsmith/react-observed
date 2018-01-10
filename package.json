@@ -23,7 +23,7 @@
     "scripts": {
         "start": "yarn test && webpack-dev-server --open",
         "watch": "webpack --watch",
-        "test": "BABEL_ENV=test jest",
+        "test": "BABEL_ENV=test jest && codecov",
         "storybook": "start-storybook -p 6006",
         "storybook:export": "build-storybook -c .storybook -o build",
         "prepublish": "babel ./src --out-dir ./lib"
@@ -31,7 +31,9 @@
     "jest": {
         "modulePaths": [
             "<rootDir>/src/"
-        ]
+        ],
+        "coverageDirectory": "./coverage/",
+        "collectCoverage": true
     },
     "peerDependencies": {
         "prop-types": "^15.5.10",
@@ -50,6 +52,7 @@
         "babel-preset-react": "^6.23.0",
         "babel-preset-stage-0": "^6.24.1",
         "classnames": "^2.2.5",
+        "codecov": "^3.0.0",
         "css-loader": "^0.28.0",
         "file-loader": "^0.11.2",
         "intersection-observer": "^0.4.2",

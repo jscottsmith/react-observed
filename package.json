@@ -24,6 +24,7 @@
         "start": "yarn test && webpack-dev-server --open",
         "watch": "webpack --watch",
         "test": "BABEL_ENV=test jest && codecov",
+        "test:watch": "BABEL_ENV=test jest --watch",
         "storybook": "start-storybook -p 6006",
         "storybook:export": "build-storybook -c .storybook -o build",
         "prepublish": "babel ./src --out-dir ./lib"

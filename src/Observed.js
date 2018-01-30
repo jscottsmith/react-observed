@@ -6,12 +6,12 @@ import PropTypes from 'prop-types';
 class Observed extends Component {
     static defaultProps = {
         initialViewState: false,
-        intersectionRatio: 1.0, // intersect ratio that the element is considered "in view"
+        intersectionRatio: 0, // intersect ratio that the element is considered "in view"
         once: false, // remove after the el has intersected the view
         options: {
             root: null, // document.querySelector('#scrollArea')
             rootMargin: '0px', // margin around observed element
-            threshold: [1.0], // callback is invoked when the intersection ratio reaches each threshold
+            threshold: [0], // callback is invoked when the intersection ratio reaches each threshold
         },
     };
 
@@ -93,7 +93,9 @@ class Observed extends Component {
         } = this.props;
 
         entries.forEach(entry => {
-            const isInView = entry.intersectionRatio >= intersectionRatio;
+            const noIntersection = entry.intersectionRatio === 0;
+            const isInView =
+                entry.intersectionRatio >= intersectionRatio && !noIntersection;
 
             if (isInView !== this.state.isInView) {
                 // update if we've transitioned to a different state

@@ -20,6 +20,9 @@ class Observed extends Component {
         initialViewState: PropTypes.bool.isRequired,
         intersectionRatio: PropTypes.number.isRequired,
         once: PropTypes.bool.isRequired,
+        onEnter: PropTypes.func,
+        onExit: PropTypes.func,
+        onChange: PropTypes.func,
         options: PropTypes.shape({
             root: PropTypes.node,
             rootMargin: PropTypes.string.isRequired,
@@ -81,7 +84,13 @@ class Observed extends Component {
     }
 
     handleIntersection = (entries, observer) => {
-        const { intersectionRatio, once } = this.props;
+        const {
+            intersectionRatio,
+            once,
+            onChange,
+            onEnter,
+            onExit,
+        } = this.props;
 
         entries.forEach(entry => {
             const isInView = entry.intersectionRatio >= intersectionRatio;
@@ -89,6 +98,11 @@ class Observed extends Component {
             if (isInView !== this.state.isInView) {
                 // update if we've transitioned to a different state
                 this.setState(() => ({ isInView }));
+
+                // Call handlers
+                onChange && onChange(isInView);
+                isInView && onEnter && onEnter();
+                !isInView && onExit && onExit();
             }
 
             if (isInView && once) {

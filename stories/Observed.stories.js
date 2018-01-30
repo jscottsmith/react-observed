@@ -49,4 +49,15 @@ storiesOf('<Observed>', module)
                 <Element isInView={isInView} mapRef={mapRef} />
             )}
         </Observed>
+    ))
+    .add('with handlers', () => (
+        <Observed
+            onChange={action('on change')}
+            onEnter={action('on enter')}
+            onExit={action('on exit')}
+        >
+            {({ isInView, mapRef }) => (
+                <Element isInView={isInView} mapRef={mapRef} />
+            )}
+        </Observed>
     ));

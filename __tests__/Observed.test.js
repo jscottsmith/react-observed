@@ -172,6 +172,92 @@ describe('Expect an <Observed> component', () => {
         expect(instance.state.isInView).toEqual(true);
     });
 
+    it('to call onEnter handler when {isInView} changes to {true}', () => {
+        require('intersection-observer');
+        const node = document.createElement('div');
+        const fakeEntries = [
+            { intersectionRatio: 0 },
+            { intersectionRatio: 0.1 },
+            { intersectionRatio: 0.2 },
+        ];
+
+        const onEnterSpy = jest.fn();
+
+        let instance;
+        ReactDOM.render(
+            <Observed
+                ref={ref => (instance = ref)}
+                intersectionRatio={0.1}
+                onEnter={onEnterSpy}
+            >
+                {({ mapRef }) => <div ref={mapRef} />}
+            </Observed>,
+            node
+        );
+
+        instance.handleIntersection(fakeEntries);
+        expect(onEnterSpy).toBeCalled();
+    });
+
+    it('to call onExit handler when {isInView} changes to {false}', () => {
+        require('intersection-observer');
+        const node = document.createElement('div');
+        const fakeEntries = [
+            { intersectionRatio: 0.1 },
+            { intersectionRatio: 0.5 },
+            { intersectionRatio: 0.2 },
+        ];
+
+        const onExitSpy = jest.fn();
+
+        let instance;
+
+        ReactDOM.render(
+            <Observed
+                ref={ref => (instance = ref)}
+                initialViewState
+                intersectionRatio={1}
+                onExit={onExitSpy}
+            >
+                {({ mapRef }) => <div ref={mapRef} />}
+            </Observed>,
+            node
+        );
+
+        instance.handleIntersection(fakeEntries);
+        expect(onExitSpy).toBeCalled();
+    });
+
+    it('to call onChange handler with state when {isInView} changes', () => {
+        require('intersection-observer');
+        const node = document.createElement('div');
+        const fakeEntries = [
+            { intersectionRatio: 1 },
+            { intersectionRatio: 0.4 },
+            { intersectionRatio: 1 },
+        ];
+
+        const onChangeSpy = jest.fn();
+
+        let instance;
+        ReactDOM.render(
+            <Observed
+                ref={ref => (instance = ref)}
+                intersectionRatio={0.5}
+                onChange={onChangeSpy}
+            >
+                {({ mapRef }) => <div ref={mapRef} />}
+            </Observed>,
+            node
+        );
+
+        instance.handleIntersection(fakeEntries);
+        expect(onChangeSpy.mock.calls.length).toBe(3);
+        expect(onChangeSpy.mock.calls[0][0]).toBe(true);
+        expect(onChangeSpy.mock.calls[1][0]).toBe(false);
+        expect(onChangeSpy.mock.calls[2][0]).toBe(true);
+    });
+
     it('to switch {isInView} state to {false} when the intersection ratio is NOT met', () => {
         require('intersection-observer');
         const node = document.createElement('div');

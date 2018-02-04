@@ -79,7 +79,9 @@ class Observed extends Component {
     }
 
     disconnectObserver() {
-        this.observer = this.observer.disconnect();
+        if (this.observer) {
+            this.observer = this.observer.disconnect();
+        }
     }
 
     observe() {

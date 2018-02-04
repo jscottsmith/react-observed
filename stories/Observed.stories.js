@@ -53,4 +53,17 @@ storiesOf('<Observed>', module)
                 <Element isInView={isInView} mapRef={mapRef} />
             )}
         </Observed>
+    ))
+    .add('with once prop', () => (
+        <Observed
+            intersectionRatio={1}
+            onChange={action('on change should be called once')}
+            onEnter={action('on enter should be called once')}
+            onExit={action('on exit should never be called')}
+            once
+        >
+            {({ isInView, mapRef }) => (
+                <Element isInView={isInView} mapRef={mapRef} />
+            )}
+        </Observed>
     ));

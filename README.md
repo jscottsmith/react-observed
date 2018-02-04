@@ -44,18 +44,21 @@ Here's an example:
 
 ## \<Observed> Props
 
-`<Observed>` takes four props as shown by the following example:
+`<Observed>` takes the props as shown by the following example:
 
 ```jsx
 <Observed
-    initialViewState
-    intersectionRatio={0.5} // target's visibility must pass the 50% threshold to be considered visible
-    once // discontinue observing the target once it's become visible
-    options={{
+    initialViewState            // the initial view state state; defaults to `false`
+    intersectionRatio={0.5}     // target's visibility must pass the 50% threshold to be considered visible
+    once                        // discontinue observing the target once it's become visible
+    onChange={isInView => {}}   // handler called with the current `isInView` state whenever it changes
+    onEnter={() => {}}          // handler called when the observed element enters
+    onExit={() => {}}           // handler called when the observed element exits
+    options={{                  // IntersectionObserver constuctor options
         root: null,
         rootMargin: '0px',
         threshold: 0.5,
-    }} // IntersectionObserver constuctor options
+    }}
 />
 ```
 

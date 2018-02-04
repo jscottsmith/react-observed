@@ -55,7 +55,7 @@ describe('Expect an <Observed> component', () => {
         );
     });
 
-    it('to call createObserver() method on mount', () => {
+    it('to call createObserver() method on mount with default observer options', () => {
         window.IntersectionObserver = jest.fn(() => ({
             observe: () => {},
         }));
@@ -71,7 +71,11 @@ describe('Expect an <Observed> component', () => {
         );
         expect(window.IntersectionObserver).toBeCalledWith(
             instance.handleIntersection,
-            Observed.defaultProps.options
+            {
+                root: Observed.defaultProps.options.root,
+                rootMargin: Observed.defaultProps.options.rootMargin,
+                threshold: Observed.defaultProps.intersectionRatio,
+            }
         );
         window.IntersectionObserver = IntersectionObserver;
     });
@@ -98,8 +102,41 @@ describe('Expect an <Observed> component', () => {
         expect(window.IntersectionObserver).toBeCalledWith(
             instance.handleIntersection,
             {
-                ...Observed.defaultProps.options,
                 root: node,
+                rootMargin: Observed.defaultProps.options.rootMargin,
+                threshold: Observed.defaultProps.intersectionRatio,
+            }
+        );
+        window.IntersectionObserver = IntersectionObserver;
+    });
+
+    it("to use intersectionRatio as threshold if one isn't provided", () => {
+        window.IntersectionObserver = jest.fn(() => ({
+            observe: () => {},
+        }));
+        const node = document.createElement('div');
+        let instance = null;
+        const expectedRatio = 0.75;
+        ReactDOM.render(
+            <Observed
+                intersectionRatio={expectedRatio}
+                ref={ref => (instance = ref)}
+                options={{
+                    root: node,
+                }}
+            >
+                {({ mapRef }) => {
+                    return <div ref={mapRef} />;
+                }}
+            </Observed>,
+            node
+        );
+        expect(window.IntersectionObserver).toBeCalledWith(
+            instance.handleIntersection,
+            {
+                root: node,
+                rootMargin: Observed.defaultProps.options.rootMargin,
+                threshold: expectedRatio,
             }
         );
         window.IntersectionObserver = IntersectionObserver;

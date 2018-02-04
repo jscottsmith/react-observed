@@ -16,28 +16,21 @@ storiesOf('<Observed>', module)
         </Observed>
     ))
     .add('is true when partially in view', () => (
-        <Observed
-            intersectionRatio={0.01}
-            options={{
-                root: null,
-                rootMargin: '0px',
-                threshold: [0.01, 0.25, 0.5, 0.75, 1],
-            }}
-        >
+        <Observed intersectionRatio={0}>
             {({ isInView, mapRef }) => (
                 <Element isInView={isInView} mapRef={mapRef} />
             )}
         </Observed>
     ))
     .add('is true when halfway in view', () => (
-        <Observed
-            intersectionRatio={0.5}
-            options={{
-                root: null,
-                rootMargin: '0px',
-                threshold: [0, 0.25, 0.5, 0.75, 1],
-            }}
-        >
+        <Observed intersectionRatio={0.5}>
+            {({ isInView, mapRef }) => (
+                <Element isInView={isInView} mapRef={mapRef} />
+            )}
+        </Observed>
+    ))
+    .add('is true when completely in view', () => (
+        <Observed intersectionRatio={1}>
             {({ isInView, mapRef }) => (
                 <Element isInView={isInView} mapRef={mapRef} />
             )}

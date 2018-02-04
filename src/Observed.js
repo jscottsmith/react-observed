@@ -11,7 +11,7 @@ class Observed extends Component {
         options: {
             root: null, // document.querySelector('#scrollArea')
             rootMargin: '0px', // margin around observed element
-            threshold: [0], // callback is invoked when the intersection ratio reaches each threshold
+            // threshold: 0, // default to props.intersectionRatio
         },
     };
 
@@ -55,7 +55,13 @@ class Observed extends Component {
 
         // merge options with defaults
         const defaultOptions = this.constructor.defaultProps.options;
-        const options = Object.assign({}, defaultOptions, this.props.options);
+        const options = Object.assign(
+            {
+                threshold: this.props.intersectionRatio, // default to intersectionRatio if no threshold is provided as an option
+            },
+            defaultOptions,
+            this.props.options
+        );
 
         this.observer = new IntersectionObserver(
             this.handleIntersection,

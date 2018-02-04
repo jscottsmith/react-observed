@@ -53,9 +53,13 @@ class Observed extends Component {
     createObserver() {
         this.checkForObserver();
 
+        // merge options with defaults
+        const defaultOptions = this.constructor.defaultProps.options;
+        const options = Object.assign({}, defaultOptions, this.props.options);
+
         this.observer = new IntersectionObserver(
             this.handleIntersection,
-            this.props.options
+            options
         );
     }
 

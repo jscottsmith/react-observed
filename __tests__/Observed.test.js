@@ -4,8 +4,18 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Observed from 'Observed.js';
 
+// keep a global reference of the observer
+let IntersectionObserver;
+
 describe('Expect an <Observed> component', () => {
+    beforeAll(() => {
+        require('intersection-observer');
+        IntersectionObserver = global.IntersectionObserver;
+    });
+
     it('to throw if no IntersectionObserver is found in the window', () => {
+        delete global.IntersectionObserver;
+
         const node = document.createElement('div');
 
         const render = () => {
@@ -22,11 +32,11 @@ describe('Expect an <Observed> component', () => {
         expect(render).toThrow(
             'Must provide an IntersectionObserver polyfill for browsers that do not yet support the technology.'
         );
+
+        global.IntersectionObserver = IntersectionObserver;
     });
 
     it('to throw if no ref is mapped', () => {
-        require('intersection-observer');
-
         const node = document.createElement('div');
 
         const render = () => {
@@ -45,9 +55,76 @@ describe('Expect an <Observed> component', () => {
         );
     });
 
-    it('to create a new IntersectionObserver instance on mount', () => {
-        require('intersection-observer');
+    it('to call createObserver() method on mount', () => {
+        window.IntersectionObserver = jest.fn(() => ({
+            observe: () => {},
+        }));
+        const node = document.createElement('div');
+        let instance = null;
+        ReactDOM.render(
+            <Observed ref={ref => (instance = ref)}>
+                {({ mapRef }) => {
+                    return <div ref={mapRef} />;
+                }}
+            </Observed>,
+            node
+        );
+        expect(window.IntersectionObserver).toBeCalledWith(
+            instance.handleIntersection,
+            Observed.defaultProps.options
+        );
+        window.IntersectionObserver = IntersectionObserver;
+    });
 
+    it('to merge default observer options with props when calling createObserver()', () => {
+        window.IntersectionObserver = jest.fn(() => ({
+            observe: () => {},
+        }));
+        const node = document.createElement('div');
+        let instance = null;
+        ReactDOM.render(
+            <Observed
+                ref={ref => (instance = ref)}
+                options={{
+                    root: node,
+                }}
+            >
+                {({ mapRef }) => {
+                    return <div ref={mapRef} />;
+                }}
+            </Observed>,
+            node
+        );
+        expect(window.IntersectionObserver).toBeCalledWith(
+            instance.handleIntersection,
+            {
+                ...Observed.defaultProps.options,
+                root: node,
+            }
+        );
+        window.IntersectionObserver = IntersectionObserver;
+    });
+
+    it('to call observe() method on mount', () => {
+        const spy = jest.fn();
+        window.IntersectionObserver = jest.fn(() => ({
+            observe: spy,
+        }));
+        const node = document.createElement('div');
+        let instance = null;
+        ReactDOM.render(
+            <Observed ref={ref => (instance = ref)}>
+                {({ mapRef }) => {
+                    return <div ref={mapRef} />;
+                }}
+            </Observed>,
+            node
+        );
+        expect(spy).toBeCalledWith(instance.el);
+        window.IntersectionObserver = IntersectionObserver;
+    });
+
+    it('to create a new IntersectionObserver instance on mount', () => {
         const node = document.createElement('div');
 
         let instance = null;
@@ -65,8 +142,6 @@ describe('Expect an <Observed> component', () => {
     });
 
     it('to take a function as a child', () => {
-        require('intersection-observer');
-
         const node = document.createElement('div');
 
         let func = false;
@@ -85,8 +160,6 @@ describe('Expect an <Observed> component', () => {
     });
 
     it('to call a child function with an object argument containing {mapRef} and {isInView} properties', () => {
-        require('intersection-observer');
-
         const node = document.createElement('div');
 
         let testParam = null;
@@ -110,8 +183,6 @@ describe('Expect an <Observed> component', () => {
     });
 
     it('to have an initial {isInView} state of {false} by default', () => {
-        require('intersection-observer');
-
         const node = document.createElement('div');
 
         let testIsInView = null;
@@ -130,8 +201,6 @@ describe('Expect an <Observed> component', () => {
     });
 
     it('to have an initial {isInView} state of {true} when set', () => {
-        require('intersection-observer');
-
         const node = document.createElement('div');
 
         let testIsInView = null;
@@ -150,7 +219,6 @@ describe('Expect an <Observed> component', () => {
     });
 
     it('to switch {isInView} state to {true} when the intersection ratio is met', () => {
-        require('intersection-observer');
         const node = document.createElement('div');
         const fakeEntries = [
             { intersectionRatio: 0 },
@@ -173,7 +241,6 @@ describe('Expect an <Observed> component', () => {
     });
 
     it('to call onEnter handler when {isInView} changes to {true}', () => {
-        require('intersection-observer');
         const node = document.createElement('div');
         const fakeEntries = [
             { intersectionRatio: 0 },
@@ -200,7 +267,6 @@ describe('Expect an <Observed> component', () => {
     });
 
     it('to call onExit handler when {isInView} changes to {false}', () => {
-        require('intersection-observer');
         const node = document.createElement('div');
         const fakeEntries = [
             { intersectionRatio: 0.1 },
@@ -229,7 +295,6 @@ describe('Expect an <Observed> component', () => {
     });
 
     it('to call onChange handler with state when {isInView} changes', () => {
-        require('intersection-observer');
         const node = document.createElement('div');
         const fakeEntries = [
             { intersectionRatio: 1 },
@@ -259,7 +324,6 @@ describe('Expect an <Observed> component', () => {
     });
 
     it('to switch {isInView} state to {false} when the intersection ratio is NOT met', () => {
-        require('intersection-observer');
         const node = document.createElement('div');
         const fakeEntries = [
             { intersectionRatio: 0.9 },
@@ -286,7 +350,6 @@ describe('Expect an <Observed> component', () => {
     });
 
     it('to disconnect the observer when {once} prop is {true} and the intersection ratio is met', () => {
-        require('intersection-observer');
         const node = document.createElement('div');
         const fakeEntries = [
             { intersectionRatio: 0.3 },
@@ -315,7 +378,6 @@ describe('Expect an <Observed> component', () => {
     });
 
     it('to disconnect the IntersectionObserver', () => {
-        require('intersection-observer');
         const node = document.createElement('div');
 
         let instance;
@@ -332,7 +394,6 @@ describe('Expect an <Observed> component', () => {
     });
 
     it('to disconnect the observer when the component will unmount', () => {
-        require('intersection-observer');
         const node = document.createElement('div');
 
         let instance;

@@ -1,5 +1,7 @@
 import { configure } from '@storybook/react';
 
+import 'intersection-observer';
+
 const req = require.context('../stories', true, /\.stories\.js$/);
 
 function loadStories() {

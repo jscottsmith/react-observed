@@ -24,8 +24,8 @@ class Observed extends Component {
         onExit: PropTypes.func,
         onChange: PropTypes.func,
         options: PropTypes.shape({
-            root: PropTypes.node,
-            rootMargin: PropTypes.string.isRequired,
+            root: PropTypes.instanceOf(Element),
+            rootMargin: PropTypes.string,
             threshold: PropTypes.oneOfType([PropTypes.array, PropTypes.number]),
         }),
     };

@@ -59,12 +59,42 @@ storiesOf('<Observed>', module)
             </Observed>
         </div>
     ))
-    .add('with handlers', () => (
+    .add('with onChange handler', () => (
+        <div className={verticalScrollContainer}>
+            <Observed onChange={state => action('onChange')(state)}>
+                {({ isInView, mapRef }) => (
+                    <Element isInView={isInView} mapRef={mapRef} />
+                )}
+            </Observed>
+        </div>
+    ))
+    .add('with onEnter handler', () => (
+        <div className={verticalScrollContainer}>
+            <Observed onEnter={action('onEnter')}>
+                {({ isInView, mapRef }) => (
+                    <Element isInView={isInView} mapRef={mapRef} />
+                )}
+            </Observed>
+        </div>
+    ))
+    .add('with onExit handler', () => (
+        <div className={verticalScrollContainer}>
+            <Observed onExit={action('onExit')}>
+                {({ isInView, mapRef }) => (
+                    <Element isInView={isInView} mapRef={mapRef} />
+                )}
+            </Observed>
+        </div>
+    ))
+    .add('with onIntersect handler', () => (
         <div className={verticalScrollContainer}>
             <Observed
-                onChange={action('on change')}
-                onEnter={action('on enter')}
-                onExit={action('on exit')}
+                onIntersect={entry =>
+                    action('onIntersect')(entry.intersectionRatio)
+                }
+                options={{
+                    threshold: [0, 0.2, 0.4, 0.6, 0.8, 1],
+                }}
             >
                 {({ isInView, mapRef }) => (
                     <Element isInView={isInView} mapRef={mapRef} />

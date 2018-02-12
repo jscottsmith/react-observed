@@ -54,6 +54,7 @@ Here's an example:
     onChange={isInView => {}}   // handler called with the current `isInView` state whenever it changes
     onEnter={() => {}}          // handler called when the observed element enters
     onExit={() => {}}           // handler called when the observed element exits
+    onIntersect={(entry) => {}} // handler called when each threshold is met with the entry data
     options={{                  // IntersectionObserver constuctor options
         root: null,
         rootMargin: '0px',
@@ -70,6 +71,7 @@ Here's an example:
 | **onChange**          | `Function` |             | Handler to be called with the current `isInView` state whenever it changes.                                                                                   |
 | **onEnter**           | `Function` |             | Handler to be called when the `isInView` state changes to `true`.                                                                                             |
 | **onExit**            | `Function` |             | Handler to be called when the `isInView` state changes to `false`.                                                                                            |
+| **onIntersect**       | `Function` |             | Handler to be called when each threshold is met with the current [entry](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserverEntry) data.    |
 | **options**           |  `Object`  | \*see below | Options passed to the IntersectionObserver constructor.                                                                                                       |
 
 ### \*IntersectionObserver Options

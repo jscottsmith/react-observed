@@ -23,6 +23,7 @@ class Observed extends Component {
         onEnter: PropTypes.func,
         onExit: PropTypes.func,
         onChange: PropTypes.func,
+        onIntersect: PropTypes.func,
         options: PropTypes.shape({
             root: PropTypes.instanceOf(Element),
             rootMargin: PropTypes.string,
@@ -102,12 +103,16 @@ class Observed extends Component {
             onChange,
             onEnter,
             onExit,
+            onIntersect,
         } = this.props;
 
         entries.forEach(entry => {
             const noIntersection = entry.intersectionRatio === 0;
             const isInView =
                 entry.intersectionRatio >= intersectionRatio && !noIntersection;
+
+            // Intersect handler
+            onIntersect && onIntersect(entry);
 
             if (isInView !== this.state.isInView) {
                 // update if we've transitioned to a different state

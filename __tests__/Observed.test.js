@@ -295,6 +295,34 @@ describe('Expect an <Observed> component', () => {
         expect(instance.state.isInView).toEqual(true);
     });
 
+    it('to call the onIntersect handler when a threshold is met', () => {
+        const node = document.createElement('div');
+        const fakeEntries = [
+            { intersectionRatio: 0 },
+            { intersectionRatio: 0.1 },
+            { intersectionRatio: 0.2 },
+        ];
+
+        const intersectSpy = jest.fn();
+
+        let instance;
+
+        ReactDOM.render(
+            <Observed ref={ref => (instance = ref)} intersectionRatio={1} onIntersect={intersectSpy}>
+                {({ mapRef }) => <div ref={mapRef} />}
+            </Observed>,
+            node
+        );
+
+        instance.handleIntersection(fakeEntries);
+
+        expect(intersectSpy.mock.calls.length).toBe(3);
+        expect(intersectSpy.mock.calls[0][0].intersectionRatio).toBe(0);
+        expect(intersectSpy.mock.calls[1][0].intersectionRatio).toBe(0.1);
+        expect(intersectSpy.mock.calls[2][0].intersectionRatio).toBe(0.2);
+
+    });
+
     it('to call onEnter handler when {isInView} changes to {true}', () => {
         const node = document.createElement('div');
         const fakeEntries = [

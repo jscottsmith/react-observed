@@ -14,6 +14,12 @@ describe('Expect an <Observed> component', () => {
     });
 
     it('to throw if no IntersectionObserver is found in the window', () => {
+        // NOTE: hide error and react warning
+        // see issue: https://github.com/facebook/jest/issues/4597
+        const preventError = e => e.preventDefault();
+        window.addEventListener('error', preventError, true);
+        Error.prototype.suppressReactErrorLogging = true;
+
         delete global.IntersectionObserver;
 
         const node = document.createElement('div');
@@ -33,11 +39,20 @@ describe('Expect an <Observed> component', () => {
             'Must provide an IntersectionObserver polyfill for browsers that do not yet support the technology.'
         );
 
+        window.removeEventListener('error', preventError, true);
+        Error.prototype.suppressReactErrorLogging = false;
+
         global.IntersectionObserver = IntersectionObserver;
     });
 
     it('to throw if no ref is mapped', () => {
         const node = document.createElement('div');
+
+        // NOTE: hide error and react warning
+        // see issue: https://github.com/facebook/jest/issues/4597
+        const preventError = e => e.preventDefault();
+        window.addEventListener('error', preventError, true);
+        Error.prototype.suppressReactErrorLogging = true;
 
         const render = () => {
             ReactDOM.render(
@@ -53,6 +68,9 @@ describe('Expect an <Observed> component', () => {
         expect(render).toThrow(
             'Must provide a ref to the DOM element to be observed.'
         );
+
+        window.removeEventListener('error', preventError, true);
+        Error.prototype.suppressReactErrorLogging = false;
     });
 
     it('to call createObserver() method on mount with default observer options', () => {

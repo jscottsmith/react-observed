@@ -5,6 +5,7 @@ const ROOT = path.resolve('./');
 const DIST = path.resolve('./dist');
 const SRC = path.resolve('./src');
 const DEMO = path.resolve('./demo');
+const STORIES = path.resolve('./stories');
 
 const clientConfig = {
     devServer: {
@@ -40,7 +41,7 @@ const clientConfig = {
             },
             {
                 test: /\.scss$/,
-                include: [DEMO],
+                include: [DEMO, STORIES],
                 loaders: [
                     'style-loader',
                     {

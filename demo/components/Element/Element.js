@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { func, bool } from 'prop-types';
 import cx from 'classnames';
 import styles from './Element.scss';
@@ -13,17 +13,22 @@ class Element extends Component {
         const { mapRef, isInView } = this.props;
 
         return (
-            <div>
+            <Fragment>
                 <div
                     ref={mapRef}
                     className={cx(styles.observed, {
                         [styles.isInView]: isInView,
                     })}
                 >
+                    <h2 className={styles.name}>
+                        <span className={styles.bracket}>&lt;</span>
+                        Observed
+                        <span className={styles.bracket}>&gt;</span>
+                    </h2>
                     {isInView ? (
-                        <span>I'm observed and in view!</span>
+                        <span className={styles.elState}>In view!</span>
                     ) : (
-                        <span>I'm observed and not in view.</span>
+                        <span className={styles.elState}>Not in view.</span>
                     )}
                 </div>
                 <div
@@ -31,10 +36,10 @@ class Element extends Component {
                         [styles.isInView]: isInView,
                     })}
                 >
-                    <span>is in view</span>
+                    <span className={styles.text}>is in view</span>
                     <span className={styles.indicator} />
                 </div>
-            </div>
+            </Fragment>
         );
     }
 }

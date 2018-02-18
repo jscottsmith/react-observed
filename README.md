@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/jscottsmith/react-observed.svg?branch=master)](https://travis-ci.org/jscottsmith/react-observed) [![codecov](https://codecov.io/gh/jscottsmith/react-observed/branch/master/graph/badge.svg)](https://codecov.io/gh/jscottsmith/react-observed)
 
-React component using the browser's Intersection Observer API to watch for when an element is within -- or partially within -- the viewport.
+React component using the browser's Intersection Observer API to watch for when an element is within (or intersecting with) the viewport.
 
 ## Example
 
@@ -11,13 +11,25 @@ React component using the browser's Intersection Observer API to watch for when 
 ## Install
 
 ```
-npm install react-observed
+npm install react-observed --save
 ```
 
-**Note:** For complete browser support you must also provide an Intersection Observer polyfill.
+or with Yarn
 
 ```
-npm install intersection-observer
+yarn add react-observed
+```
+
+**Note:** For complete [browser support](#browser-support) you must also provide an [Intersection Observer polyfill](https://github.com/w3c/IntersectionObserver/tree/master/polyfill).
+
+```
+npm install intersection-observer --save
+```
+
+or
+
+```
+yarn add intersection-observer
 ```
 
 ## Usage
@@ -48,17 +60,18 @@ Here's an example:
 
 ```jsx
 <Observed
-    initialViewState            // the initial view state state; defaults to `false`
-    intersectionRatio={0.5}     // target's visibility must pass the 50% threshold to be considered visible
-    once                        // discontinue observing the target once it's become visible
-    onChange={isInView => {}}   // handler called with the current `isInView` state whenever it changes
-    onEnter={() => {}}          // handler called when the observed element enters
-    onExit={() => {}}           // handler called when the observed element exits
-    onIntersect={(entry) => {}} // handler called when each threshold is met with the entry data
-    options={{                  // IntersectionObserver constuctor options
+    initialViewState // the initial view state state; defaults to `false`
+    intersectionRatio={0.5} // target's visibility must pass the 50% threshold to be considered visible
+    once // discontinue observing the target once it's become visible
+    onChange={isInView => {}} // handler called with the current `isInView` state whenever it changes
+    onEnter={() => {}} // handler called when the observed element enters
+    onExit={() => {}} // handler called when the observed element exits
+    onIntersect={entry => {}} // handler called when each threshold is met with the entry data
+    options={{
+        // IntersectionObserver constuctor options
         root: null,
-        rootMargin: '0px',
-        threshold: 0.5,
+        rootMargin: "0px",
+        threshold: 0.5
     }}
 />
 ```
@@ -96,17 +109,21 @@ The following is as described on MDN:
 
 ## Render Callback
 
-The child function takes one object parameter like such `{ isInView, mapRef }`.
+The child function takes one object parameter like such `{ isInView, mapRef }`. It's required to map a ref function to a DOM element otherwise `<Observed>` will throw an error.
+
+Example:
+
+```jsx
+<Observed>{({ mapRef }) => <div ref={mapRef} />}</Observed>
+```
 
 The keys of which are:
 
-**`isInView`**
+| Name         |    Type    | Description                                                                                                                             |
+| ------------ | :--------: | --------------------------------------------------------------------------------------------------------------------------------------- |
+| **isInView** | `Boolean`  | This is `true` when the observed element's intersection ratio is `>=` to the `intersectionRatio` prop.                                  |
+| **mapRef**   | `Function` | This a `function` that is declared as the `ref` of the DOM element to be observed. Note that this is required for the observer to work. |
 
-Type: `boolean`
+## Browser Support
 
-This is `true` when the observed element's `intersectionRatio` is `>=` the `<Observed>` prop `intersectionRatio`.
-
-**`mapRef`**
-
-This a `function` that is declared as the `ref` of the DOM element to be observed.
-
+Intersection Observer is [pretty well supported](https://caniuse.com/#feat=intersectionobserver) by major browsers, with the exception of Safari/iOS Safari. There's also not been much movement by the Safari team to add support. This is unfortunate but adding a [good polyfill](https://github.com/w3c/IntersectionObserver/tree/master/polyfill) will work great for adding support to Safari or IE11. You can track [Safari's lack of progress here](https://bugs.webkit.org/show_bug.cgi?id=159475).

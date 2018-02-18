@@ -1,6 +1,6 @@
 # React Observed
 
-[![Build Status](https://travis-ci.org/jscottsmith/react-observed.svg?branch=master)](https://travis-ci.org/jscottsmith/react-observed) [![codecov](https://codecov.io/gh/jscottsmith/react-observed/branch/master/graph/badge.svg)](https://codecov.io/gh/jscottsmith/react-observed)
+[![npm version](https://badge.fury.io/js/react-observed.svg)](https://badge.fury.io/js/react-observed) [![Build Status](https://travis-ci.org/jscottsmith/react-observed.svg?branch=master)](https://travis-ci.org/jscottsmith/react-observed) [![codecov](https://codecov.io/gh/jscottsmith/react-observed/branch/master/graph/badge.svg)](https://codecov.io/gh/jscottsmith/react-observed)
 
 React component using the browser's Intersection Observer API to watch for when an element is within (or intersecting with) the viewport.
 

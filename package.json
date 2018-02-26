@@ -1,6 +1,6 @@
 {
     "name": "react-observed",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "React component using the browser's Intersection Observer API to watch for when an element is within (or intersecting with) the viewport.",
     "keywords": [
         "react",

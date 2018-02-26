@@ -2,6 +2,7 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import validHTMLElement from './validHTMLElement';
 
 class Observed extends Component {
     static defaultProps = {
@@ -25,7 +26,7 @@ class Observed extends Component {
         onChange: PropTypes.func,
         onIntersect: PropTypes.func,
         options: PropTypes.shape({
-            root: PropTypes.instanceOf(Element),
+            root: validHTMLElement,
             rootMargin: PropTypes.string,
             threshold: PropTypes.oneOfType([PropTypes.array, PropTypes.number]),
         }),

@@ -1,5 +1,6 @@
 const webpack = require('webpack');
 const path = require('path');
+const nodeExternals = require('webpack-node-externals');
 
 const ROOT = path.resolve('./');
 const DIST = path.resolve('./dist');
@@ -64,4 +65,60 @@ const clientConfig = {
     },
 };
 
-module.exports = clientConfig;
+const serverConfig = {
+    target: 'node',
+
+    watch: true,
+
+    node: {
+        __dirname: true,
+    },
+
+    externals: [nodeExternals()],
+
+    entry: path.resolve(DEMO + '/server.js'),
+
+    output: {
+        path: DIST,
+        filename: 'server.js',
+    },
+
+    resolve: {
+        alias: {
+            'react-observed': SRC,
+            components: path.resolve(DEMO + '/components'),
+        },
+    },
+
+    module: {
+        rules: [
+            {
+                test: /\.js$/,
+                include: [DEMO, SRC],
+                loader: 'babel-loader',
+            },
+            {
+                test: /\.scss$/,
+                include: [DEMO],
+                loaders: [
+                    {
+                        loader: 'css-loader/locals',
+                        query: {
+                            localIdentName: '[name]_[local]_[hash:base64:3]',
+                            sourceMap: false,
+                        },
+                    },
+                    'postcss-loader',
+                    {
+                        loader: 'sass-loader',
+                        query: {
+                            outputStyle: 'expanded',
+                        },
+                    },
+                ],
+            },
+        ],
+    },
+};
+
+module.exports = [clientConfig, serverConfig];

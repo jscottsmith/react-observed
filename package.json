@@ -21,7 +21,8 @@
     },
     "main": "lib/index.js",
     "scripts": {
-        "start": "yarn test && webpack-dev-server --open",
+        "start": "yarn test && webpack --progress --colors --watch",
+        "start:server": "node ./dist/server.js",
         "watch": "webpack --watch",
         "test": "BABEL_ENV=test jest && codecov",
         "test:watch": "BABEL_ENV=test jest --watch",
@@ -68,6 +69,7 @@
         "sass-loader": "^6.0.3",
         "style-loader": "^0.16.1",
         "webpack": "^2.2.1",
-        "webpack-dev-server": "^2.9.1"
+        "webpack-dev-server": "^2.9.1",
+        "webpack-node-externals": "^1.6.0"
     }
 }

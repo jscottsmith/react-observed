@@ -126,4 +126,4 @@ The keys of which are:
 
 ## Browser Support
 
-Intersection Observer is [pretty well supported](https://caniuse.com/#feat=intersectionobserver) by major browsers, with the exception of Safari/iOS Safari. There's also not been much movement by the Safari team to add support. This is unfortunate but adding a [good polyfill](https://github.com/w3c/IntersectionObserver/tree/master/polyfill) will work great for adding support to Safari or IE11. You can track [Safari's lack of progress here](https://bugs.webkit.org/show_bug.cgi?id=159475).
+Intersection Observer is [supported](https://caniuse.com/#feat=intersectionobserver) by the latest major browsers. For older browsers a [good polyfill](https://github.com/w3c/IntersectionObserver/tree/master/polyfill) is necessary.
